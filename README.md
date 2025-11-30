@@ -31,9 +31,8 @@ Log de Saída
 2025-11-30 17:55:36 ACCOUNT FOUND: [http] Host: 192.168.56.102 User: user Password: password [SUCCESS]
 2025-11-30 17:55:36 ACCOUNT FOUND: [http] Host: 192.168.56.102 User: user Password: qwerty [SUCCESS]
 ```
-Evidência Visual:
-ftp_sucesso.png
-### Análise e Mitigação
+> **Evidência Visual:**
+> ![Sucesso FTP](ftp_sucesso.png)
 
 Análise da Vulnerabilidade: O ataque obteve sucesso devido à utilização de credenciais padrão e senhas fracas, além da ausência de mecanismos de defesa contra múltiplas tentativas de login.
 
@@ -55,8 +54,8 @@ medusa -h 192.168.56.102 -U users.txt -p msfadmin -M smbnt -t 10
 Log de Saída
 2025-11-30 17:35:54 ACCOUNT FOUND: [smbnt] Host: 192.168.56.102 User: msfadmin Password: msfadmin [SUCCESS (ADMIN$ Access Allowed)]
 ```
-Evidência Visual:
-
+> **Evidência Visual:**
+> ![Sucesso SMB](smb_sucesso.png)
 ### Análise e Mitigação
 
 Análise da Vulnerabilidade: O sucesso do ataque de Password Spraying demonstra que as políticas de bloqueio de conta tradicionais podem ser contornadas ao testar poucas senhas contra muitos usuários. Além disso, a permissão de acesso irrestrito às portas SMB (139/445) facilitou a enumeração e a exploração.
@@ -88,7 +87,8 @@ Log de Saída
 2025-11-30 17:55:36 ACCOUNT FOUND: [http] Host: 192.168.56.102 User: user Password: password [SUCCESS]
 2025-11-30 17:55:36 ACCOUNT FOUND: [http] Host: 192.168.56.102 User: user Password: qwerty [SUCCESS]
 ```
-Evidência Visual:
+> **Evidência Visual:**
+> ![Sucesso WEB](web_sucesso.png)
 
 ### Análise e Mitigação
 
@@ -99,3 +99,11 @@ Recomendações de Segurança (Defesa em Profundidade):
 2. CAPTCHA e Honeypots: Adicionar um mecanismo de CAPTCHA (como reCAPTCHA) ou um campo Honeypot para diferenciar usuários legítimos de ferramentas automatizadas.
 3. Bloqueio de IP: Implementar um mecanismo de bloqueio temporário ou permanente do IP de origem após exceder o limite de tentativas (Rate Limiting).
 4. Autenticação Multifator (MFA/2FA): Para contas com privilégios elevados (admin, root), a implementação da Autenticação de Dois Fatores é a defesa mais forte contra a força bruta, pois a senha roubada se torna inútil sem o segundo fator.
+
+
+## Conclusão do Desafio
+Este desafio demonstrou, na prática, que as falhas de autenticação são frequentemente o elo mais fraco na segurança de um sistema. A capacidade de usar ferramentas automatizadas como o Medusa e o Hydra para explorar credenciais fracas ou padrão em múltiplos protocolos (FTP, SMB e HTTP) reforça a necessidade urgente de adoção de políticas de segurança robustas.
+
+O principal aprendizado reside na mentalidade de Defesa em Profundidade. Enquanto o Firewall protege o perímetro, a aplicação precisa de controles internos, como Rate Limiting e CAPTCHA, e o usuário final precisa de Autenticação Multifator (MFA) e Senhas Fortes. A ausência de qualquer um desses controles permitiu a quebra bem-sucedida em todos os cenários.
+
+O projeto cumpre o objetivo de reconhecer vulnerabilidades comuns e reforça que, na prática, a mitigação eficaz deve ser implementada em múltiplas camadas, desde a política de senhas até o monitoramento ativo de logs (Fail2Ban / SIEM), garantindo que as vulnerabilidades exploradas neste ambiente de laboratório sejam neutralizadas em ambientes de produção.
