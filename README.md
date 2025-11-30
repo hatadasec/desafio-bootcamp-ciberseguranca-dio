@@ -32,7 +32,7 @@ Log de Saída
 2025-11-30 17:55:36 ACCOUNT FOUND: [http] Host: 192.168.56.102 User: user Password: qwerty [SUCCESS]
 ```
 Evidência Visual:
-
+ftp_sucesso.png
 ### Análise e Mitigação
 
 Análise da Vulnerabilidade: O ataque obteve sucesso devido à utilização de credenciais padrão e senhas fracas, além da ausência de mecanismos de defesa contra múltiplas tentativas de login.
